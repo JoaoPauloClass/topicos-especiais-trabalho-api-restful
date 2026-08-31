@@ -1,0 +1,42 @@
+1. Ativar venv
+    - .\venv\Scripts\activate
+
+2. Instalação
+    - Flask
+    - Flask-SQLAlchemy
+    - Flask-Migrate
+    - flask-marshmallow
+    - marshmallow-sqlalchemy
+    - python-dotenv
+
+    # Gera o arquivo requirements.txt com as versões das bibliotecas instaladas
+    - pip freeze > requirements.txt
+
+3. Estrutura do projeto
+
+    flask_crud_aula/
+    ├── app/
+    │   ├── __init__.py
+    │   ├── config.py
+    │   ├── extensions.py
+    │   ├── errors.py
+    │   ├── models/
+    │   ├── schemas/
+    │   ├── services/          ← com conteúdo
+    │   └── routes/
+    ├── migrations/            ← gerado pelo flask db init
+    ├── tests/
+    │   ├── conftest.py
+    │   ├── test_categoria.py
+    │   └── test_produto.py
+    ├── .env.example
+    ├── .gitignore
+    ├── requirements.txt
+    └── run.py
+
+4. Executar
+    - flask db init
+    - flask db migrate -m "Criando tabelas categorias e produtos com relacionamento 1:N"
+    - flask db upgrade
+    - python run.py
+
