@@ -11,10 +11,19 @@ load_dotenv(BASE_DIR / ".env")
 class Config:
     """Configuração comum a todos os ambientes."""
 
-    SECRET_KEY = os.getenv("SECRET_KEY", "chave-insegura-apenas-para-aula")
-    SQLALCHEMY_DATABASE_URI = os.getenv(
-        "DATABASE_URL", f"sqlite:///{BASE_DIR / 'catalogo.db'}"
-    )
+    SECRET_KEY = os.getenv("SECRET_KEY", "chave-dev-insegura-mude-em-producao")
+
+    user = os.getenv("USER_DB")
+    password = os.getenv("PASSWORD_DB")
+
+    db_name = os.getenv("DB_NAME")
+    db_host = os.getenv("DB_HOST")
+    db_port = os.getenv("DB_PORT")
+
+    print("DEBUG >>>", repr(os.getenv("USER_DB")), repr(os.getenv("PASSWORD_DB")), repr(os.getenv("DB_HOST")),
+          repr(os.getenv("DB_PORT")), repr(os.getenv("DB_NAME")))
+
+    SQLALCHEMY_DATABASE_URI = f'postgresql://{user}:{password}@{db_host}:{db_port}/{db_name}?client_encoding=utf8'
     # Desligado por padrão desde o Flask-SQLAlchemy 3.x; mantido explícito
     # porque a turma vai ver esse nome em tutoriais antigos.
     SQLALCHEMY_TRACK_MODIFICATIONS = False
@@ -26,6 +35,17 @@ class Config:
         Existe porque `app.config.from_object()` recebe a *classe* e nunca a
         instancia — validação escrita em `__init__` jamais seria executada.
         """
+
+        if app.config.get("TESTING"):
+            return
+
+        obrigatorias = {"USER_DB": cls.user, "PASSWORD_DB": cls.password, "DB_NAME": cls.db_name}
+        faltantes = [chave for chave, valor in obrigatorias.items() if not valor]
+
+        if faltantes:
+            raise RuntimeError(
+                f"As seguintes variaveis de ambiente do banco de dados estao ausentes: {', '.join(faltantes)}"
+            )
 
 
 class DevelopmentConfig(Config):
@@ -45,7 +65,7 @@ class ProductionConfig(Config):
 
     @classmethod
     def init_app(cls, app) -> None:
-        if cls.SECRET_KEY == Config.SECRET_KEY:
+        if cls.SECRET_KEY == "chave-dev-insegura-mude-em-producao":
             raise RuntimeError(
                 "SECRET_KEY não definida. Em produção ela é obrigatória. "
                 "Falhar na inicialização é melhor que subir com chave conhecida."

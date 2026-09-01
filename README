@@ -9,7 +9,7 @@
     - marshmallow-sqlalchemy
     - python-dotenv
 
-    # Gera o arquivo requirements.txt com as versões das bibliotecas instaladas
+    # Gera o arquivo requirements.txt com as versoes das bibliotecas instaladas
     - pip freeze > requirements.txt
 
 3. Estrutura do projeto

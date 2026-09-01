@@ -2,7 +2,7 @@ from marshmallow import fields, validate
 
 from app.extensions import ma
 from app.models.categoria import Categoria
-from app.schemas.produto_schema import ProdutoSchema
+from app.schemas.jogo_schema import JogoSchema
 
 
 class CategoriaSchema(ma.SQLAlchemyAutoSchema):
@@ -13,10 +13,10 @@ class CategoriaSchema(ma.SQLAlchemyAutoSchema):
     id = fields.Integer(dump_only=True)
     nome = fields.String(required=True, validate=validate.Length(min=2, max=100))
     descricao = fields.String(allow_none=True, load_default=None)
-    produtos = fields.Nested(
-        ProdutoSchema, many=True, dump_only=True, exclude=("categoria_id",)
+    jogos = fields.Nested(
+        JogoSchema, many=True, dump_only=True, exclude=("categoria_id",)
     )
 
 
 categoria_schema = CategoriaSchema()
-categorias_schema = CategoriaSchema(many=True, exclude=("produtos",))
+categorias_schema = CategoriaSchema(many=True, exclude=("jogos",))

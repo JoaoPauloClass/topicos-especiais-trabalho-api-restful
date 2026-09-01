@@ -1,9 +1,10 @@
 from __future__ import annotations
 
-from sqlalchemy import String
+from datetime import date, datetime
+from sqlalchemy import String, Date, DateTime, func
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-
 from app.extensions import db
+
 
 
 class Categoria(db.Model):
@@ -11,9 +12,18 @@ class Categoria(db.Model):
 
     id: Mapped[int] = mapped_column(primary_key=True)
     nome: Mapped[str] = mapped_column(String(100), unique=True, nullable=False)
-    descricao: Mapped[str | None] = mapped_column(String(255))
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True),
+        server_default=func.now(),
+    )
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True),
+        server_default=func.now(),
+        onupdate=func.now()
+    )
 
-    produtos: Mapped[list["Produto"]] = relationship(
+    jogos: Mapped[list["Jogo"]] = relationship(
+        "Jogo",
         back_populates="categoria",
         cascade="all, delete-orphan",
     )

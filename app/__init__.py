@@ -3,6 +3,7 @@ from flask import Flask
 from app.config import get_config
 from app.errors import register_error_handlers
 from app.extensions import db, ma, migrate
+from app.routes import jogos_bp
 
 
 def create_app(config_name: str | None = None) -> Flask:
@@ -18,10 +19,9 @@ def create_app(config_name: str | None = None) -> Flask:
 
     from app import models  # noqa: F401
     from app.routes.categoria_routes import categoria_bp
-    from app.routes.produto_routes import produto_bp
 
     app.register_blueprint(categoria_bp, url_prefix="/api/categorias")
-    app.register_blueprint(produto_bp, url_prefix="/api/produtos")
+    app.register_blueprint(jogos_bp, url_prefix="/api/jogos")
 
     register_error_handlers(app)
 
