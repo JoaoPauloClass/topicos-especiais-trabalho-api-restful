@@ -9,20 +9,23 @@ from app.models import Jogo
 class JogoSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Jogo
-        load_instance = True
+        load_instance = False
         dump_only = ("id", "created_at", "updated_at")
 
     id = fields.Integer(dump_only=True)
     titulo = fields.String(required=True, validate=validate.Length(min=2, max=255))
-    datapublicao = fields.DateTime(
+    datapublicacao = fields.DateTime(
         required=True,
         format="%d-%m-%Y",
+        error_messages={
+            "required": "A data de publicação é obrigatória.",
+            "invalid": "Formato de data inválido. Use o padrão DD-MM-YYYY.",
+        },
     )
-    estoque = fields.Integer(load_default=0, validate=validate.Range(min=0))
     categoria_id = fields.Integer(required=True)
 
-    @validates("datapublicao")
-    def validate_datapublicacao(self, value: datetime) -> None:
+    @validates("datapublicacao")
+    def validate_datapublicacao(self, value: datetime, **kwargs) -> None:
         """Garante que a data de publicação não esteja no futuro."""
         agora = datetime.now(timezone.utc)
         data_comparacao = value if value.tzinfo else value.replace(tzinfo=timezone.utc)

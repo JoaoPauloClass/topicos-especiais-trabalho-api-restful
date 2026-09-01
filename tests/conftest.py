@@ -41,13 +41,14 @@ def categoria(client) -> dict:
 
 
 @pytest.fixture
-def produto(client, categoria) -> dict:
+def jogo(client, categoria) -> dict:
     resposta = client.post(
-        "/api/produtos",
+        "/api/jogos",
         json={
-            "nome": "Mouse Sem Fio",
-            "preco": 129.90,
-            "estoque": 35,
+            "titulo": "Elden Ring",
+            "datapublicao": "25-02-2022",
+            "desenvolvedor": "FromSoftware",
+            "distribuidora": "Bandai Namco",
             "categoria_id": categoria["id"],
         },
     )

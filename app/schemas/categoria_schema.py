@@ -12,7 +12,6 @@ class CategoriaSchema(ma.SQLAlchemyAutoSchema):
 
     id = fields.Integer(dump_only=True)
     nome = fields.String(required=True, validate=validate.Length(min=2, max=100))
-    descricao = fields.String(allow_none=True, load_default=None)
     jogos = fields.Nested(
         JogoSchema, many=True, dump_only=True, exclude=("categoria_id",)
     )

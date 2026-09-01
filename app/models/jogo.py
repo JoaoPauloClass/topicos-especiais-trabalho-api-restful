@@ -12,7 +12,7 @@ class Jogo(db.Model):
 
     id: Mapped[int] = mapped_column(primary_key=True)
     titulo: Mapped[str] = mapped_column(String(255), unique=True, nullable=False)
-    datapublicao: Mapped[datetime] = mapped_column(db.DateTime, nullable=False)
+    datapublicacao: Mapped[datetime] = mapped_column(db.DateTime, nullable=False)
     desenvolvedor: Mapped[str] = mapped_column(String(255), nullable=False)
     distribuidora: Mapped[str] = mapped_column(String(255), nullable=False)
     categoria_id: Mapped[int] = mapped_column(
