@@ -36,3 +36,4 @@ def atualizar_jogo(jogo_id: int):
 @jogos_bp.delete('/<int:jogo_id>')
 def remover_jogo(jogo_id: int):
     jogo_service.remover(jogo_id=jogo_id)
+    return 201
