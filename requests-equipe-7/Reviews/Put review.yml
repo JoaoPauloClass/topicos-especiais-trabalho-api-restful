@@ -1,0 +1,30 @@
+info:
+  name: Put review
+  type: http
+  seq: 4
+
+http:
+  method: PUT
+  url: "{{url}}reviews/:id"
+  params:
+    - name: id
+      value: "1"
+      type: path
+  body:
+    type: json
+    data: |-
+      {
+        "titulo": "review teste 1",
+        "username": "teste",
+        "rating": "8.0",
+        "review": "teste review",
+        "jogo_id": "4"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

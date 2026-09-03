@@ -1,0 +1,26 @@
+info:
+  name: Post review
+  type: http
+  seq: 3
+
+http:
+  method: POST
+  url: "{{url}}reviews"
+  body:
+    type: json
+    data: |-
+      {
+        "titulo": "review 1",
+        "username": "teste",
+        "rating": "8.0",
+        "review": "teste review",
+        "jogo_id": "4"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

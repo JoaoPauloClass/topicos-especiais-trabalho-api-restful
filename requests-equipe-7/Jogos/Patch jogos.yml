@@ -1,0 +1,26 @@
+info:
+  name: Patch jogos
+  type: http
+  seq: 5
+
+http:
+  method: PATCH
+  url: "{{url}}jogos/:id"
+  params:
+    - name: id
+      value: "1"
+      type: path
+  body:
+    type: json
+    data: |-
+      {
+        "titulo": "Gta 6"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

@@ -1,0 +1,30 @@
+info:
+  name: Put jogos
+  type: http
+  seq: 4
+
+http:
+  method: PUT
+  url: "{{url}}jogos/:id"
+  params:
+    - name: id
+      value: "3"
+      type: path
+  body:
+    type: json
+    data: |-
+      {
+        "titulo": "The witcher 2",
+        "datapublicacao": "01-01-2008",
+        "desenvolvedor": "CD Project Red",
+        "distribuidora": "Lembrei",
+        "categoria_id": "2"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false
