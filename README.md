@@ -59,8 +59,6 @@ Para testes, foi utilizado a ferramenta Bruno. Link para download: https://www.u
 
 As requests utilizadas para testes estão disponíveis neste repositório na pasta `request-equipe-7`
 
-Para fazer a importação, abra o Bruno e selecione:
-
-![img.png](img.png)
+Para fazer a importação, abra o Bruno e selecione a opção `+` >  `Abrir coleção`
 
 Selecione a pasta `request-equipe-7` e a importação será realizada.
